@@ -1,0 +1,98 @@
+library(readxl)
+proxiserver <- read_excel("D:/r/proxis/proxiserver.xlsx")
+View(proxiserver)
+proxiserver_new<- proxiserver
+proxiserver =proxiserver[1:4]
+library(caTools)
+library(e1071)
+library(caret)
+set.seed(NULL)
+library(caTools)
+library(e1071)
+library(caret)
+set.seed(NULL)
+split = sample.split(proxiserver$collection_level, SplitRatio = 0.75)
+training_set= subset(proxiserver,split == FALSE)
+test_set= subset(proxiserver,split == TRUE)
+training_set[-4] = scale(training_set [-4])
+test_set[-4] = scale(test_set[-4])
+training_set$collection_level<- as.factor(unlist(training_set$collection_level))
+test_set$collection_level <- as.factor(unlist(test_set$collection_level ))
+train_class <- training_set[,-4]
+model <- naiveBayes(train_class, training_set$collection_level)
+summary(model)
+pred <- predict(model,training_set[-4])
+summary(pred)
+confusionMatrix(pred, training_set$collection_level)
+High<-subset(test_set,collection_level=="High")
+Medium<-subset(test_set,collection_level=="Medium")
+Low<-subset(test_set,collection_level=="Low")
+save.image("D:/r/proxis/proxis.RData")
+load("D:/r/hurza/smart/.RData")
+library(readxl)
+Smart <- read_excel("D:/r/hurza/smart/Smart.xlsx")
+View(Smart)
+setwd("D:/r/hurza/smart")
+shiny::runApp()
+Smart_samp <-Smart
+Smart_samp$Smart_NAME <-NULL
+Smart_samp$Smart_NAME
+smart1 <- as.data.frame(subset(Smart$AGE, Smart$AGE>0))
+smart1
+kmeans_Smart$cluster
+smarttab <-table(Smart$NAME, kmeans_Smart$cluster)
+smarttab
+plot(Smart_samp[c("AGE")],
+col = kmeans_Smart$cluster)
+Smart2<-as.data.frame(subset(Smart$TIME_S, Smart$TIME_S>0))
+kmeans_Smart2 <- kmeans(Smart2 ,3)
+kmeans_Smart2$cluster
+table(Smart$NAME, kmeans_Smart2$cluster)
+plot(Smart_samp[c("TIME_S")],
+col = kmeans_Smart2$cluster)
+Smart3<-as.data.frame(subset(Smart$TIME_D, Smart$TIME_D>0))
+kmeans_Smart3 <- kmeans(Smart3,2)
+kmeans_Smart3$cluster
+table(Smart$NAME, kmeans_Smart3$cluster)
+plot(Smart_samp[c("TIME_D")],
+col = kmeans_Smart2$cluster)
+View(Smart3)
+View(Smart)
+Smart_samp <-Smart
+Smart_samp$Smart_NAME <-NULL
+Smart_samp$Smart_NAME
+smart1 <- as.data.frame(subset(Smart$AGE, Smart$AGE>0))
+smart1
+kmeans_Smart$cluster
+smarttab <-table(Smart$NAME, kmeans_Smart$cluster)
+smarttab
+plot(Smart_samp[c("AGE","ld")],
+col = kmeans_Smart$cluster)
+Smart_samp <-Smart
+Smart_samp$Smart_NAME <-NULL
+Smart_samp$Smart_NAME
+smart1 <- as.data.frame(subset(Smart$AGE, Smart$AGE>0))
+smart1
+kmeans_Smart$cluster
+smarttab <-table(Smart$NAME, kmeans_Smart$cluster)
+smarttab
+plot(Smart_samp[c("AGE","Id")],
+col = kmeans_Smart$cluster)
+Smart3<-as.data.frame(subset(Smart$TIME_D, Smart$TIME_D>0))
+kmeans_Smart3 <- kmeans(Smart3,2)
+kmeans_Smart3$cluster
+table(Smart$NAME, kmeans_Smart3$cluster)
+plot(Smart_samp[c("TIME_D","Id")],
+col = kmeans_Smart2$cluster)
+View(Smart)
+Smart3<-as.data.frame(subset(Smart$TIME_D, Smart$TIME_D>0))
+kmeans_Smart3 <- kmeans(Smart3,2)
+kmeans_Smart3$cluster
+table(Smart$NAME, kmeans_Smart3$cluster)
+plot(Smart_samp[c("Id","TIME_D")],
+col = kmeans_Smart2$cluster)
+data("Smart")
+Smart<-Smart
+data("Smart")
+Smart_new <-Smart[sample(nrow(Smart)),]
+table(Smart)
